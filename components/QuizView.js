@@ -1,17 +1,27 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 
 
 class QuizView extends Component {
 
   render(){
-    return 
-    <View>
-      <Text>
-      QuizView
-      </Text>
-    </View>
+    return (
+      <View style={styles.container}>
+        <Text>
+          QuizView
+        </Text>
+      </View>
+    )
   }
 }
 
 export default QuizView
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#b5dc9d',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
