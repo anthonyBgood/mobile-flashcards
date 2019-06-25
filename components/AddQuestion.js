@@ -3,7 +3,9 @@ import { StyleSheet, View, Text } from 'react-native'
 
 
 class AddQuestion extends Component {
-
+  static navigationOptions = {
+    title: 'Add Question',
+  };
   render(){
     return (
       <View style={styles.container}>

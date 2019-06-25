@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 
 
 class DeckView extends Component {
+  static navigationOptions = {
+    title: 'Deck: [insert Name]',
+  };
 
   render(){
     return (
@@ -11,15 +14,19 @@ class DeckView extends Component {
           DeckView
         </Text>
         <Button
-          style={{margin:'1em'}}
+
           title="start quiz"
           onPress={() => this.props.navigation.navigate('QuizView')}
         />
-        <Text></Text>
         <Button 
-          style={{margin:'1em'}}
+
           title="add question"
           onPress={() => this.props.navigation.navigate('AddQuestion')}
+        />
+        <Button 
+
+          title="delete deck"
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     )
@@ -32,7 +39,7 @@ export default DeckView
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6cba3a',
+    backgroundColor: '#91cb6c',
     alignItems: 'center',
     justifyContent: 'space-around',
   },

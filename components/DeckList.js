@@ -3,6 +3,10 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 
 
 class DeckList extends Component {
+  static navigationOptions = {
+    title: 'flash card decks',
+  };
+
 
   render(){
     return (
@@ -27,7 +31,7 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#48a90a',
+    backgroundColor: '#91cb6c',
     alignItems: 'center',
     justifyContent: 'space-around',
   },

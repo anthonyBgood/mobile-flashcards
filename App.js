@@ -18,7 +18,16 @@ const MainNavigator = createStackNavigator(
     AddDeck: {screen: AddDeck}
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home',
+    defaultNavigationOptions:{
+      headerStyle:{
+        backgroundColor: '#98a90a',
+      },
+      headerTintColor:'#a90a48',
+      headerTitleStyle:{
+        fontWeight:'bold',
+      },
+    }
   }
 )
 

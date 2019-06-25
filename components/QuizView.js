@@ -3,6 +3,9 @@ import { StyleSheet, View, Text } from 'react-native'
 
 
 class QuizView extends Component {
+  static navigationOptions = {
+    title: 'Quiz',
+  };
 
   render(){
     return (
@@ -20,7 +23,7 @@ export default QuizView
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#b5dc9d',
+    backgroundColor: '#91cb6c',
     alignItems: 'center',
     justifyContent: 'center',
   },
