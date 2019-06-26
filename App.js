@@ -3,6 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import {  createStackNavigator, 
           createAppContainer } from 'react-navigation'
 
+import { createStore } from 'redux'
+import  { Provider } from 'react-redux'
+import reducer from './reducer'
+
 import DeckList from './components/DeckList'
 import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
@@ -36,8 +40,10 @@ const MainAppContainer = createAppContainer(MainNavigator)
 export default function App() {
   return (
     
+    <Provider  store = {createStore(reducer)}>
       <MainAppContainer/>
-    
+    </Provider>  
+  
   );
 }
 

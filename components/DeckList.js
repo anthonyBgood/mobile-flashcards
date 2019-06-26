@@ -1,11 +1,30 @@
+
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
+
+import { connect } from 'react-redux'
+
+import { startDeck } from '../utils/api'
+import { receiveDecks } from '../actions'
 
 
 class DeckList extends Component {
   static navigationOptions = {
     title: 'flash card decks',
   };
+
+  state = {
+    ready: false
+  }
+
+  componentDidMount () {
+
+    const { dispatch } = this.props
+    const localDecks = startDeck()
+    dispatch(receiveDecks(localDecks))
+    this.setState(()=> ({ready: true}))
+
+  }
 
 
   render(){
@@ -23,6 +42,7 @@ class DeckList extends Component {
         title="add new deck"
         onPress={() => this.props.navigation.navigate('AddDeck')}
       />
+
     </View>
     )
   }
@@ -37,4 +57,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeckList
+function mapStateToProps (decks){
+
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckList)
