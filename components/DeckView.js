@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 
 class DeckView extends Component {
   static navigationOptions = ({navigation}) => {
-
     const { deckId } = navigation.state.params
-
     return {
       title: `Deck: ${deckId}`,
     }
   }
 
   render(){
+
+    const { deckId } = this.props
     return (
       <View style={styles.container}>
         <Text>
@@ -21,12 +21,12 @@ class DeckView extends Component {
         <Button
 
           title="start quiz"
-          onPress={() => this.props.navigation.navigate('QuizView')}
+          onPress={() => this.props.navigation.navigate('QuizView',{ deckId })}
         />
         <Button 
 
-          title="add question"
-          onPress={() => this.props.navigation.navigate('AddQuestion')}
+          title="add card"
+          onPress={() => this.props.navigation.navigate('AddQuestion', { deckId })}
         />
         <Button 
 
@@ -50,13 +50,12 @@ const styles = StyleSheet.create({
 });
 
 
-function mapStateToProps(decks, {navigation}){
+function mapStateToProps(decks,{navigation}){
 
   const { deckId } = navigation.state.params
 
   return{
     deckId ,
-    deck: decks[deckId] ,
   }
 }
 

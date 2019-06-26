@@ -39,42 +39,32 @@ class DeckList extends Component {
     }
     return (
     <View style={styles.container}>
-      <Text>
-        DeckList
-      </Text>
 
       {Object.keys(decks).map(key =>{
         return (
 
-
-
           <TouchableOpacity
             key={key}
-            style={{ width: 200, }}
+            style={{ width: 300, marginTop: 5, borderRadius: 20}}
             onPress={() => this.props.navigation.navigate(
               'DeckView',
               { deckId: key }
             )}
           >
-          <View  style={{ backgroundColor: '#48A90A', padding: 20,}}>
-            <Text style={{fontSize: 20}}>
-              {decks[key].title}
-            </Text>
-            <Text style={{fontSize: 16, color: 'gray'}}>
-              Questions: {decks[key].questions.length}
-            </Text>
-          </View>
+            <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+              <Text style={{fontSize: 20}}>
+                {decks[key].title}
+              </Text>
+              <Text style={{fontSize: 16, color: 'gray'}}>
+                Questions: {decks[key].questions.length}
+              </Text>
+            </View>
           </TouchableOpacity>
           
 
         )
       })}
 
-      <Button
-        style={{margin:10}}
-        title="view this Deck"
-        onPress={() => this.props.navigation.navigate('DeckView')}
-      />
       <Button
         title="add new deck"
         onPress={() => this.props.navigation.navigate('AddDeck')}

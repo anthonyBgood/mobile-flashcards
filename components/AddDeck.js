@@ -1,18 +1,55 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, Button } from 'react-native'
 
 
 class AddDeck extends Component {
   static navigationOptions = {
-    title: 'New Deck',
+    title: 'Add New Deck',
   };
+
+  state = {
+    text: '' , 
+  }
+
+
   render(){
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <Text>
-          AddDeck
+          Add a new Deck
         </Text>
-      </View>
+
+        <TextInput 
+          style={{height: 40, 
+                  width: 350, 
+                  borderColor: 'black', 
+                  borderWidth: 1, 
+                  color:'black',
+                  padding: 10 ,
+                  backgroundColor: '#48a90a' ,
+                  fontSize: 20 ,
+                }}
+          placeholder='name'
+          placeholderTextColor = 'gray'
+          onChangeText={(text) => this.setState({text})}
+        />
+
+        {
+          !(this.state.text.length === 0) 
+          && 
+          <View>
+            <Button
+              title="SUBMIT"
+              onPress={() => this.props.navigation.navigate('Home')}
+            />
+
+            <Text style={{marginTop: 50}}>
+              {this.state.text}
+            </Text>
+          </View>
+        }
+
+      </KeyboardAvoidingView>
     )
   }
 }
