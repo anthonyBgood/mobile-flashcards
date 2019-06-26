@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
-
+import { connect } from 'react-redux'
 
 class DeckView extends Component {
-  static navigationOptions = {
-    title: 'Deck: [insert Name]',
-  };
+  static navigationOptions = ({navigation}) => {
+
+    const { deckId } = navigation.state.params
+
+    return {
+      title: `Deck: ${deckId}`,
+    }
+  }
 
   render(){
     return (
@@ -33,7 +38,6 @@ class DeckView extends Component {
   }
 }
 
-export default DeckView
 
 
 const styles = StyleSheet.create({
@@ -44,3 +48,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 });
+
+
+function mapStateToProps(decks, {navigation}){
+
+  const { deckId } = navigation.state.params
+
+  return{
+    deckId ,
+    deck: decks[deckId] ,
+  }
+}
+
+export default connect(mapStateToProps)(DeckView)
