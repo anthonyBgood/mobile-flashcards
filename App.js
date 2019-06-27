@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {  createStackNavigator, 
           createAppContainer } from 'react-navigation'
@@ -13,6 +13,7 @@ import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
 import AddQuestion from './components/AddQuestion'
 import AddDeck from './components/AddDeck'
+import { setLocalNotification } from './utils/notificationsHelper'
 
 const MainNavigator = createStackNavigator(
   {
@@ -38,7 +39,26 @@ const MainNavigator = createStackNavigator(
 
 const MainAppContainer = createAppContainer(MainNavigator)  
 
-export default function App() {
+export default class App extends Component {
+
+  componentDidMount() {
+    //console.log('HERE AT SET NOTIFICATIONS')
+    setLocalNotification()
+  }
+
+  render(){
+    return (
+      
+      <Provider  store = {createStore(reducer)}>
+        <MainAppContainer/>
+      </Provider>  
+    
+    )
+  }
+}
+
+
+/* export default function App() {
   return (
     
     <Provider  store = {createStore(reducer)}>
@@ -46,13 +66,5 @@ export default function App() {
     </Provider>  
   
   );
-}
+} */
 
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}); */

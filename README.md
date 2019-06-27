@@ -15,5 +15,7 @@ Install using `yarn install`
 run dev with `yarn start`
 
 
-## DEV NOTES
-Only tested on android emulator. No iOS testing, or real application.
+## TESTING AND DEV NOTES
+this application has only been tested on android emulator. 
+No iOS testing, or on a real application.
+It was tested on emulator `emulator -avd Nexus_S_API_28`

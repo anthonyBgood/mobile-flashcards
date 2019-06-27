@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 
+import { clearLocalNotification, setLocalNotification} from '../utils/notificationsHelper'
+
 
 class QuizView extends Component {
 
@@ -37,7 +39,17 @@ class QuizView extends Component {
       totalRight,
     } = this.state
 
+    const competeQuizAndNotifyForTomorrow = () =>{
 
+
+    // Clear local notification
+    clearLocalNotification()
+        .then(setLocalNotification)
+
+    // navigate back
+    this.props.navigation.navigate('DeckView',{ deckId: deckId })
+
+    }
 
     let displayContent 
    
@@ -84,10 +96,7 @@ class QuizView extends Component {
         <View style={styles.contentButtons}>
           <Button
                 title="exit"
-                onPress={() => this.props.navigation.navigate(
-                  'DeckView',
-                  { deckId: deckId }
-                )}
+                onPress={() => competeQuizAndNotifyForTomorrow()}
               />
         </View>
         </Fragment>
