@@ -22,6 +22,7 @@ class DeckList extends Component {
 
     const { dispatch } = this.props
     const localDecks = startDeck()
+    debugger
     dispatch(receiveDecks(localDecks))
     this.setState(()=> ({ready: true}))
 

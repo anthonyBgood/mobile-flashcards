@@ -9,6 +9,9 @@ function decks (state =[], action){
 
   switch(action.type){
   case RECEIVE_DECKS :
+
+      debugger
+      
     return{
       ...state ,
       ... action.decks,
