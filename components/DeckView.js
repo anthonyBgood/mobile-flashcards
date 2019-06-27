@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux' 
+
+import { removeDeck } from '../actions'
+import { StackActions } from 'react-navigation';
+
+
 
 class DeckView extends Component {
   static navigationOptions = ({navigation}) => {
@@ -10,13 +15,39 @@ class DeckView extends Component {
     }
   }
 
+
   render(){
 
-    const { deckId } = this.props
+    const { decks, deckId, dispatch } = this.props
+
+    const deleteDeck = () =>{
+
+      dispatch(removeDeck(deckId))
+      this.props.navigation.dispatch(StackActions.popToTop());
+
+    }
+
+
+    //TODO: workaround that deals with re-render of this component 
+      // after deleteDeck has been called (the deckId isn't valid anymore)
+      // the JSX below is never shown as already routed to Home
+
+    if(decks[deckId] === undefined){
+      return (
+      <View>
+        <Text>No deck</Text>
+      </View>
+      )
+    }
+
+
+    // normal page render
     return (
+      
       <View style={styles.container}>
         <Text>
-          DeckView
+        
+        {`This deck (${deckId}) has ${decks[deckId].questions.length} cards`} 
         </Text>
         <Button
 
@@ -31,7 +62,7 @@ class DeckView extends Component {
         <Button 
 
           title="delete deck"
-          onPress={() => this.props.navigation.navigate('Home')}
+          onPress={() => deleteDeck()}
         />
       </View>
     )
@@ -56,6 +87,7 @@ function mapStateToProps(decks,{navigation}){
 
   return{
     deckId ,
+    decks ,
   }
 }
 

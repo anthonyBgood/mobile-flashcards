@@ -41,7 +41,7 @@ class DeckList extends Component {
       <View style={styles.container}>
 
         {
-          console.log('TEST DECKS: ', decks)
+          console.log('TEST DECKS KEYS: ', Object.keys(decks))
         }
 
         {Object.keys(decks).map(key =>{

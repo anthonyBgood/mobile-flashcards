@@ -1,12 +1,24 @@
 import { AsyncStorage } from 'react-native'
 import dummyData from './dummyData'
 
+
 const FLASH_CARDS_STORAGE_KEY = 'flashCards:decks'
 
 
 export function startDeck(){
 
-  return dummyData()
+  //return dummyData()
+  AsyncStorage.clear()  
+
+  return AsyncStorage.getItem(this.CALENDAR_STORAGE_KEY)
+    .then((value) =>{
+      console.log('asyncValue: ', value)
+      
+      debugger
+      return dummyData()
+      //return (value !== null? value: dummyData())
+    })
+
 }
 
 
