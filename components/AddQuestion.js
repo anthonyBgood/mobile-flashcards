@@ -3,8 +3,8 @@ import { StyleSheet, View, Text,
         TextInput, KeyboardAvoidingView, Button } from 'react-native'
 
 import { connect } from 'react-redux'
-
 import { addCard } from '../actions'
+import { localAddCardToDeck } from '../utils/api'
 
 class AddQuestion extends Component {
   static navigationOptions = {
@@ -25,8 +25,11 @@ class AddQuestion extends Component {
       const { questionText, answerText } = this.state
       const { deckId } = this.props.navigation.state.params
 
-      dispatch(addCard(deckId, questionText, answerText))
-      navigateBack()    
+      localAddCardToDeck(deckId, questionText, answerText)
+        .then(() =>{
+          dispatch(addCard(deckId, questionText, answerText))
+          navigateBack()    
+        })
 
     }
 

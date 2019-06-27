@@ -1,74 +1,84 @@
 import { AsyncStorage } from 'react-native'
 import dummyData from './dummyData'
+import { makeDeck } from './actionHelpers'
 
 
 const FLASH_CARDS_STORAGE_KEY = 'flashCards:decks'
 
 
-/*
-
-SUGGESTED AsyncStorage methods
-
-  getDecks: return all of the decks along with their titles, questions, and answers. 
-
-  getDeck: take in a single id argument and return the deck associated with that id. 
-
-  saveDeckTitle: take in a single title argument and add it to the decks. 
-
-  addCardToDeck: take in two arguments, 
-            title and card, and will add the card to the list of questions for the 
-            deck with the associated title. 
-*/
-
-export function startDeck(){
+// use to initial where there is no data at all for testing
+export function localInitDeck(){
 
   return dummyData()
   
+}
 
-/*
-   AsyncStorage.clear()    
-  return AsyncStorage.getItem(this.CALENDAR_STORAGE_KEY)
-    .then((value) =>{
-      console.log('asyncValue: ', value)
+// use to get any data stored locally
+export function localGetDecks(){
 
-      debugger
-      return dummyData()
-      //return (value !== null? value: dummyData())
-    })
-    .catch(() => dummyData()) 
-*/
+  return AsyncStorage.getItem(FLASH_CARDS_STORAGE_KEY)
+      .then((result) => {
+        console.log('api localDecks: ', JSON.parse(result)) 
+        return (JSON.parse(result))
+      })
 
 }
 
+//use to store whole redux decks store to local
+export function localSetDecks(decks){
+  return AsyncStorage.setItem(FLASH_CARDS_STORAGE_KEY,JSON.stringify(decks))
+    .then(() => console.log('api localSetDecks complete'))
+}
 
-export function mergeDeck ({key, deck}){
+
+export function localRemoveDecks(){
+  return AsyncStorage.removeItem(FLASH_CARDS_STORAGE_KEY)
+    .then(() => console.log('api localremoveDecks complete'))
+}
+
+export function localAddDeck(text){
+
+  newDeck = makeDeck(text)
   return AsyncStorage.mergeItem(
     FLASH_CARDS_STORAGE_KEY,
-    JSON.stringify({[key]:deck}))
+    JSON.stringify(newDeck)
+    ).then(() => localGetDecks())
+
 }
 
 
-export function removeDeck(key){
+export function localRemoveDeck(deckId){
   return AsyncStorage.getItem(FLASH_CARDS_STORAGE_KEY)
     .then((results) =>{
       const data = JSON.parse(results)
-      data[key]=undefined
-      delete data[key]
+      data[deckId]=undefined
+      delete data[deckId]
       AsyncStorage.setItem(FLASH_CARDS_STORAGE_KEY,JSON.stringify(data))
     })
 }
 
 
-export function addQuestion(key, question,answer){
+export function localAddCardToDeck(deckId, questionText, answerText){
   // TODO:
   //    get deck getItem()
   //    add question
   //    call mergeDeck with the amended deck
+  newCard = {}
+  newCard.question = questionText
+  newCard.answer= answerText
+
+
+  return AsyncStorage.getItem(FLASH_CARDS_STORAGE_KEY)
+  .then((results) =>{
+    const data = JSON.parse(results)
+
+    const newQuestions = data[deckId].questions.slice()
+    newQuestions.splice(newQuestions.length, 0, newCard)
+    data[deckId].questions = newQuestions
+
+    AsyncStorage.setItem(FLASH_CARDS_STORAGE_KEY,JSON.stringify(data))
+  })
+
+
 }
 
-export function removeQuestion(key, questionStr){
-  // TODO:
-  //    get deck getItem()
-  //    filter to remove question
-  //    call mergeDeck with the amended deck
-}

@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
 
-import { startDeck } from '../utils/api'
+import { localInitDeck, localGetDecks, localSetDecks, localRemoveDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 
 
@@ -21,10 +21,33 @@ class DeckList extends Component {
   componentDidMount () {
 
     const { dispatch } = this.props
-    const localDecks = startDeck()
-    debugger
-    dispatch(receiveDecks(localDecks))
-    this.setState(()=> ({ready: true}))
+
+      // DEV - load dummy data  
+    /* localGetDecks()
+      .then((result) =>{
+        result === null
+        ? dispatch(receiveDecks(initDecks))
+        : dispatch(receiveDecks(result))
+        this.setState(()=> ({ready: true}))
+      }) */
+
+      // operational
+      localGetDecks()
+        .then((result) =>{
+          result !== null && dispatch(receiveDecks(result))
+          this.setState(()=> ({ready: true}))
+        })
+
+
+      // DEV - remove existing local data 
+      /* localRemoveDecks()
+        .then(()=>{
+          localGetDecks()
+          .then((result) =>{
+            result !== null && dispatch(receiveDecks(result))
+            this.setState(()=> ({ready: true}))
+          })          
+        }) */
 
   }
 
@@ -37,38 +60,68 @@ class DeckList extends Component {
     if (ready === false){
       return <AppLoading />
     }
+
     return (
 
       <View style={styles.container}>
 
         {
-          console.log('TEST DECKS KEYS: ', Object.keys(decks))
-        }
+          console.log('TEST DECKS: ',(decks !== undefined && decks.length !== 0) )
+          }
+          {
+          console.log('TEST DECKS2: ',decks  )
+        } 
 
-        {Object.keys(decks).map(key =>{
+        {
+          (decks !== undefined && decks.length !== 0) 
+          ?
+          Object.keys(decks).map(key =>{
           return (
 
             <TouchableOpacity
               key={key}
               style={{ width: 300, marginTop: 5, borderRadius: 20}}
               onPress={() => this.props.navigation.navigate(
-                'DeckView',
-                { deckId: key }
-              )}
-            >
+                        'DeckView',
+                        { deckId: key }
+                      )}>
+            
               <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+                
                 <Text style={{fontSize: 20}}>
                   {decks[key].title}
                 </Text>
+
                 <Text style={{fontSize: 16, color: 'gray'}}>
                   Questions: {decks[key].questions.length}
                 </Text>
+
               </View>
             </TouchableOpacity>
             
 
           )
-        })}
+          })
+          :
+
+            <View
+              style={{ width: 300, marginTop: 5, borderRadius: 20}}>
+
+              <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+                
+                <Text style={{fontSize: 20}}>
+                  You are deck less
+                </Text>
+
+                <Text style={{fontSize: 16, color: 'gray'}}>
+                  grow some deck - select ADD
+                </Text>
+
+              </View>
+            </View>
+        
+        
+        }
 
         <Button
           title="add new deck"

@@ -42,7 +42,6 @@ const MainAppContainer = createAppContainer(MainNavigator)
 export default class App extends Component {
 
   componentDidMount() {
-    //console.log('HERE AT SET NOTIFICATIONS')
     setLocalNotification()
   }
 

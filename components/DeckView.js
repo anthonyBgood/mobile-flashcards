@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 import { connect } from 'react-redux' 
 
 import { removeDeck } from '../actions'
-import { StackActions } from 'react-navigation';
+import { StackActions } from 'react-navigation'
+import { localRemoveDeck } from '../utils/api'
 
 
 
@@ -22,8 +23,13 @@ class DeckView extends Component {
 
     const deleteDeck = () =>{
 
-      dispatch(removeDeck(deckId))
-      this.props.navigation.dispatch(StackActions.popToTop());
+      localRemoveDeck(deckId)
+        .then(() =>{
+
+          dispatch(removeDeck(deckId))
+          this.props.navigation.dispatch(StackActions.popToTop());
+        })
+      
 
     }
 

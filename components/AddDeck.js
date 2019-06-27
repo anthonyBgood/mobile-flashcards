@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, TextInput, Button } from 
 import { connect } from 'react-redux'
 
 import { addDeck } from '../actions'
+import { localAddDeck } from '../utils/api'
 
 
 
@@ -23,8 +24,13 @@ class AddDeck extends Component {
       const { dispatch } = this.props
       const { text } = this.state
       
-      dispatch(addDeck(text))
-      this.props.navigation.navigate('Home')
+      
+      localAddDeck(text)
+        .then(()=>{
+          
+          dispatch(addDeck(text))
+          this.props.navigation.navigate('Home')
+        })
     }
 
     return (
