@@ -6,6 +6,7 @@ import {  createStackNavigator,
 import { createStore } from 'redux'
 import  { Provider } from 'react-redux'
 import reducer from './reducer'
+import middleware from './middleware'
 
 import DeckList from './components/DeckList'
 import DeckView from './components/DeckView'
@@ -47,11 +48,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+}); */

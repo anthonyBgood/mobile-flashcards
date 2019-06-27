@@ -9,7 +9,6 @@ import { startDeck } from '../utils/api'
 import { receiveDecks } from '../actions'
 
 
-
 class DeckList extends Component {
   static navigationOptions = {
     title: 'flash card decks',
@@ -38,39 +37,44 @@ class DeckList extends Component {
       return <AppLoading />
     }
     return (
-    <View style={styles.container}>
 
-      {Object.keys(decks).map(key =>{
-        return (
+      <View style={styles.container}>
 
-          <TouchableOpacity
-            key={key}
-            style={{ width: 300, marginTop: 5, borderRadius: 20}}
-            onPress={() => this.props.navigation.navigate(
-              'DeckView',
-              { deckId: key }
-            )}
-          >
-            <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
-              <Text style={{fontSize: 20}}>
-                {decks[key].title}
-              </Text>
-              <Text style={{fontSize: 16, color: 'gray'}}>
-                Questions: {decks[key].questions.length}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          
+        {
+          console.log('TEST DECKS: ', decks)
+        }
 
-        )
-      })}
+        {Object.keys(decks).map(key =>{
+          return (
 
-      <Button
-        title="add new deck"
-        onPress={() => this.props.navigation.navigate('AddDeck')}
-      />
+            <TouchableOpacity
+              key={key}
+              style={{ width: 300, marginTop: 5, borderRadius: 20}}
+              onPress={() => this.props.navigation.navigate(
+                'DeckView',
+                { deckId: key }
+              )}
+            >
+              <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+                <Text style={{fontSize: 20}}>
+                  {decks[key].title}
+                </Text>
+                <Text style={{fontSize: 16, color: 'gray'}}>
+                  Questions: {decks[key].questions.length}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            
 
-    </View>
+          )
+        })}
+
+        <Button
+          title="add new deck"
+          onPress={() => this.props.navigation.navigate('AddDeck')}
+        />
+
+      </View>
     )
   }
 }

@@ -1,4 +1,5 @@
 import {RECEIVE_DECKS, ADD_DECK } from '../actions/index'
+import { makeDeck } from '../utils/actionHelpers'
 
 
 
@@ -12,9 +13,12 @@ function decks (state =[], action){
     }
 
   case ADD_DECK :
+
+    newDeck = makeDeck(action.deckName)
+
     return{
       ...state , 
-      ... action.deck ,
+      ... newDeck ,
     }
 
   default :
