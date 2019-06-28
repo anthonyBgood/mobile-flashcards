@@ -18,7 +18,7 @@ export function localGetDecks(){
 
   return AsyncStorage.getItem(FLASH_CARDS_STORAGE_KEY)
       .then((result) => {
-        console.log('api localDecks: ', JSON.parse(result)) 
+        //console.log('api localDecks: ', JSON.parse(result)) 
         return (JSON.parse(result))
       })
 
@@ -27,13 +27,13 @@ export function localGetDecks(){
 //use to store whole redux decks store to local
 export function localSetDecks(decks){
   return AsyncStorage.setItem(FLASH_CARDS_STORAGE_KEY,JSON.stringify(decks))
-    .then(() => console.log('api localSetDecks complete'))
+    /*.then(() => console.log('api localSetDecks complete'))*/
 }
 
 
 export function localRemoveDecks(){
   return AsyncStorage.removeItem(FLASH_CARDS_STORAGE_KEY)
-    .then(() => console.log('api localremoveDecks complete'))
+    /* .then(() => console.log('api localremoveDecks complete')) */
 }
 
 export function localAddDeck(text){

@@ -66,14 +66,14 @@ class DeckList extends Component {
       <View style={styles.container}>
 
         {
-          console.log('TEST DECKS: ',(decks !== undefined && decks.length !== 0) )
+          console.log('TEST DECKS: ',decks !== undefined , Object.keys(decks).length )
           }
           {
           console.log('TEST DECKS2: ',decks  )
         } 
 
         {
-          (decks !== undefined && decks.length !== 0) 
+          (decks !== undefined &&  Object.keys(decks).length !== undefined && Object.keys(decks).length !== 0) 
           ?
           Object.keys(decks).map(key =>{
           return (
@@ -109,12 +109,12 @@ class DeckList extends Component {
 
               <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
                 
-                <Text style={{fontSize: 20}}>
+                <Text style={{fontSize: 20, color: '#4a4a4a'}}>
                   You are deck less
                 </Text>
 
                 <Text style={{fontSize: 16, color: 'gray'}}>
-                  grow some deck - select ADD
+                  select Add to begin
                 </Text>
 
               </View>
