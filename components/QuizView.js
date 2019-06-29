@@ -39,14 +39,19 @@ class QuizView extends Component {
       totalRight,
     } = this.state
 
-    const competeQuizAndNotifyForTomorrow = () =>{
+    const notifyForTomorrow = () =>{
 
       // Clear local notification
       clearLocalNotification()
           .then(setLocalNotification)
 
-      // navigate back
-      this.props.navigation.navigate('DeckView',{ deckId: deckId })
+
+
+    }
+
+    const navigateBack = () => {
+            // navigate back
+            this.props.navigation.navigate('DeckView',{ deckId: deckId })
 
     }
 
@@ -79,6 +84,8 @@ class QuizView extends Component {
     // all questions answered
     if(currentQuestion === questions.length){
 
+      {notifyForTomorrow()}
+
       displayContent = (
         <Fragment>
         <View style={styles.content}>
@@ -95,7 +102,7 @@ class QuizView extends Component {
         <View style={styles.contentButtons}>
           <Button
                 title="exit"
-                onPress={() => competeQuizAndNotifyForTomorrow()}
+                onPress={() => navigateBack()}
               />
 
           <Button

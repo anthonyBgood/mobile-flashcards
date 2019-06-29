@@ -30,7 +30,7 @@ class AddQuestion extends Component {
     localAddCardToDeck(deckId, questionText, answerText)
       .then(() =>{
         dispatch(addCard(deckId, questionText, answerText))
-        navigateBack()    
+        this.navigateBack()
       })
 
   }
@@ -91,7 +91,7 @@ class AddQuestion extends Component {
           />
 
           {
-            !(state.answerText.length === 0) && !(state.questionText.length === 0) 
+            !(this.state.answerText.length === 0) && !(this.state.questionText.length === 0) 
             && 
               <Button 
                 title="SUBMIT"
