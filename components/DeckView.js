@@ -12,7 +12,7 @@ class DeckView extends Component {
   static navigationOptions = ({navigation}) => {
     const { deckId } = navigation.state.params
     return {
-      title: `Deck: ${deckId}`,
+      title: `The ${deckId} deck`,
     }
   }
 
@@ -57,7 +57,7 @@ class DeckView extends Component {
             {deckId} 
           </Text>
           <Text style={{fontSize: 16, color: 'gray'}}>
-            {`has ${decks[deckId].questions.length} cards`} 
+            {`has ${decks[deckId].questions.length} ${decks[deckId].questions.length === 1? 'card' : 'cards'}`} 
           </Text>
         </View>
         <View style={styles.contentButtons}>

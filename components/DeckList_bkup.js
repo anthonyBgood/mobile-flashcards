@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
 
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
@@ -24,7 +24,7 @@ class DeckList extends Component {
     const { dispatch } = this.props
 
       // DEV - load dummy data  
-      /* localRemoveDecks()
+      localRemoveDecks()
         .then(()=>{
           dispatch(receiveDecks(localInitDeck()))
           localSetDecks(this.props.decks)
@@ -32,14 +32,14 @@ class DeckList extends Component {
               this.setState(()=> ({ready: true}))
             })
           
-          }) */
+          })
 
       // operational
-      localGetDecks()
+      /* localGetDecks()
         .then((result) =>{
           result !== null && dispatch(receiveDecks(result))
           this.setState(()=> ({ready: true}))
-        })
+        }) */
 
 
       // DEV - remove existing local data 
@@ -72,31 +72,32 @@ class DeckList extends Component {
 
       <View style={styles.container}>
 
-        <View style={{flex:3, paddingTop:30 }}>
+        <View style={{flex:3}}>
           {
             (decks !== undefined &&  Object.keys(decks).length !== undefined && Object.keys(decks).length !== 0) 
             ?
-            <FlatList 
-              data= {Object.keys(decks)} 
-              keyExtractor={(item) => item}
-              extraData={decks}
-              renderItem={({item}) => 
-              
-                <DeckListComponent 
-                  key={item}
-                  deckId={item}  
-                  navigateToDeck={this.navigateToDeck}
-                  deckTitle={decks[item].title}
-                  deckLength={decks[item].questions.length}/>              
-              }/>
+              Object.keys(decks).map(deckId =>{
+                return (
+                  
+                  <DeckListComponent 
+                      key={deckId}
+                      deckId={deckId}  
+                      navigateToDeck={this.navigateToDeck}
+                      deckTitle={decks[deckId].title}
+                      deckLength={decks[deckId].questions.length}/>
 
+                )})
             :
-              <View style={{ width: 300, marginTop: 5, borderRadius: 20}}>
+
+              <View
+                style={{ width: 300, marginTop: 5, borderRadius: 20}}>
+
                 <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
                   
                   <Text style={{fontSize: 20, color: '#4a4a4a'}}>
                     You are deck less
                   </Text>
+
                   <Text style={{fontSize: 16, color: 'gray'}}>
                     select Add to begin
                   </Text>
@@ -108,7 +109,7 @@ class DeckList extends Component {
           }
         </View>
         
-        <View style={{flex:1, justifyContent: 'center'}}>
+        <View style={{flex:1}}>
           <Button
             title="add new deck"
             onPress={() => this.props.navigation.navigate('AddDeck')}
@@ -139,16 +140,22 @@ export default connect(mapStateToProps)(DeckList)
 
 
 
-/* Object.keys(decks).map(deckId =>{
-  return (
-    
-    <DeckListComponent 
-        key={deckId}
-        deckId={deckId}  
-        navigateToDeck={this.navigateToDeck}
-        deckTitle={decks[deckId].title}
-        deckLength={decks[deckId].questions.length}/>
+/*                 <TouchableOpacity
+                  key={key}
+                  style={{ width: 300, marginTop: 5, borderRadius: 20}}
+                  onPress={() => this.navigateToDeck(key) }>
+                
+                  <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+                    
+                    <Text style={{fontSize: 20}}>
+                      {decks[key].title}
+                    </Text>
 
-  )}) */
+                    <Text style={{fontSize: 16, color: 'gray'}}>
+                      Questions: {decks[key].questions.length}
+                    </Text>
 
-  /* renderItem={({item}) => <Text>{item} {JSON.stringify(decks[item])}</Text>}/> */
+                  </View>
+
+                </TouchableOpacity> 
+                )}*/
