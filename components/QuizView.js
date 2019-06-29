@@ -41,26 +41,25 @@ class QuizView extends Component {
 
     const competeQuizAndNotifyForTomorrow = () =>{
 
+      // Clear local notification
+      clearLocalNotification()
+          .then(setLocalNotification)
 
-    // Clear local notification
-    clearLocalNotification()
-        .then(setLocalNotification)
-
-    // navigate back
-    this.props.navigation.navigate('DeckView',{ deckId: deckId })
+      // navigate back
+      this.props.navigation.navigate('DeckView',{ deckId: deckId })
 
     }
 
     let displayContent 
    
 
-
+    debugger
     // no questions
     if (questions.length == 0){
       displayContent = (
         <Fragment>
         <View style={styles.content}>
-          <Text>
+          <Text  style={styles.questionBox}>
             there are no questions
           </Text>
         </View>
@@ -75,7 +74,7 @@ class QuizView extends Component {
         </View>
         </Fragment>
       ) 
-    }  
+    }  else
 
     // all questions answered
     if(currentQuestion === questions.length){
@@ -204,6 +203,8 @@ const styles = StyleSheet.create({
     /* backgroundColor: '#48a90a',
     borderRadius: 10,*/
     padding: 10, 
+    textAlign:'center',
+
   },
 });
 

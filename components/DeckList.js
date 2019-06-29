@@ -7,6 +7,7 @@ import { AppLoading } from 'expo'
 
 import { localInitDeck, localGetDecks, localSetDecks, localRemoveDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
+import DeckListComponent from './DeckListComponent'
 
 
 class DeckList extends Component {
@@ -26,7 +27,11 @@ class DeckList extends Component {
       localRemoveDecks()
         .then(()=>{
           dispatch(receiveDecks(localInitDeck()))
-          this.setState(()=> ({ready: true}))
+          localSetDecks(this.props.decks)
+            .then(() =>{
+              this.setState(()=> ({ready: true}))
+            })
+          
           })
 
       // operational
@@ -49,6 +54,10 @@ class DeckList extends Component {
 
   }
 
+  navigateToDeck = (deckId) => {
+    this.props.navigation.navigate('DeckView',{ deckId: deckId })
+  }
+
 
   render(){
 
@@ -66,33 +75,17 @@ class DeckList extends Component {
         {
           (decks !== undefined &&  Object.keys(decks).length !== undefined && Object.keys(decks).length !== 0) 
           ?
-          Object.keys(decks).map(key =>{
-          return (
-
-            <TouchableOpacity
-              key={key}
-              style={{ width: 300, marginTop: 5, borderRadius: 20}}
-              onPress={() => this.props.navigation.navigate(
-                        'DeckView',
-                        { deckId: key }
-                      )}>
-            
-              <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+            Object.keys(decks).map(deckId =>{
+              return (
                 
-                <Text style={{fontSize: 20}}>
-                  {decks[key].title}
-                </Text>
+                <DeckListComponent 
+                    key={deckId}
+                    deckId={deckId}  
+                    navigateToDeck={this.navigateToDeck}
+                    deckTitle={decks[deckId].title}
+                    deckLength={decks[deckId].questions.length}/>
 
-                <Text style={{fontSize: 16, color: 'gray'}}>
-                  Questions: {decks[key].questions.length}
-                </Text>
-
-              </View>
-            </TouchableOpacity>
-            
-
-          )
-          })
+              )})
           :
 
             <View
@@ -141,3 +134,25 @@ function mapStateToProps (decks){
 }
 
 export default connect(mapStateToProps)(DeckList)
+
+
+
+/*                 <TouchableOpacity
+                  key={key}
+                  style={{ width: 300, marginTop: 5, borderRadius: 20}}
+                  onPress={() => this.navigateToDeck(key) }>
+                
+                  <View  style={{ backgroundColor: '#48A90A', padding: 20, borderRadius: 10,}}>
+                    
+                    <Text style={{fontSize: 20}}>
+                      {decks[key].title}
+                    </Text>
+
+                    <Text style={{fontSize: 16, color: 'gray'}}>
+                      Questions: {decks[key].questions.length}
+                    </Text>
+
+                  </View>
+
+                </TouchableOpacity> 
+                )}*/

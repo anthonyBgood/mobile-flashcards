@@ -67,7 +67,6 @@ export function localAddCardToDeck(deckId, questionText, answerText){
   newCard.question = questionText
   newCard.answer= answerText
 
-
   return AsyncStorage.getItem(FLASH_CARDS_STORAGE_KEY)
   .then((results) =>{
     const data = JSON.parse(results)

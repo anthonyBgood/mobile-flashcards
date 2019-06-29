@@ -7,9 +7,15 @@ import { addCard } from '../actions'
 import { localAddCardToDeck } from '../utils/api'
 
 class AddQuestion extends Component {
-  static navigationOptions = {
-    title: 'Add new Card',
-  };
+
+  static navigationOptions = ({navigation}) => {
+    const { deckId } = navigation.state.params
+    return {
+      title: `Add card to ${deckId} deck`,
+    }
+  }
+
+
   state = {
     questionText: '' , 
     answerText: '' ,
@@ -18,6 +24,7 @@ class AddQuestion extends Component {
 
   render(){
 
+    const { deckId } = this.props.navigation.state.params
 
     const submitCard = () =>{
 
@@ -41,10 +48,12 @@ class AddQuestion extends Component {
     }
 
     return (
+      
+
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <KeyboardAvoidingView style={styles.contentView}>
+        <View style={styles.contentView}>
           <Text>
-            Add a card 
+            Add your question/answer pair
           </Text>
 
           <TextInput 
@@ -62,11 +71,10 @@ class AddQuestion extends Component {
             placeholderTextColor = 'gray'
             onChangeText={(answerText) => this.setState({answerText})}
           />
-        </KeyboardAvoidingView>
+        </View>
 
         {/* buttons */}
-        <KeyboardAvoidingView style={styles.contentButtons}>
-
+        <View style={styles.contentButtons}>
           <Button
             title="CANCEL"
             onPress={() => navigateBack() }
@@ -82,7 +90,7 @@ class AddQuestion extends Component {
               />
 
           }
-          </KeyboardAvoidingView>
+        </View>
 
       </KeyboardAvoidingView>
     )
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
     borderWidth: 1, 
     color:'black',
     padding: 10 ,
-    backgroundColor: '#48a90a' ,
+    /* backgroundColor: '#48a90a' , */
     fontSize: 20 ,
     marginTop:10,                  
   }

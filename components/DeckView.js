@@ -17,21 +17,22 @@ class DeckView extends Component {
   }
 
 
+  deleteDeck = () =>{
+
+    const { deckId, dispatch } = this.props
+
+    localRemoveDeck(deckId)
+      .then(() =>{
+
+        dispatch(removeDeck(deckId))
+        this.props.navigation.dispatch(StackActions.popToTop());
+      })
+    
+  }
+
   render(){
 
-    const { decks, deckId, dispatch } = this.props
-
-    const deleteDeck = () =>{
-
-      localRemoveDeck(deckId)
-        .then(() =>{
-
-          dispatch(removeDeck(deckId))
-          this.props.navigation.dispatch(StackActions.popToTop());
-        })
-      
-
-    }
+    const { decks, deckId } = this.props
 
 
     //TODO: this is a workaround that deals with re-render of this component after
@@ -50,26 +51,29 @@ class DeckView extends Component {
     // normal page render
     return (
       
-      <View style={styles.container}>
-        <Text>
-        
-        {`This deck (${deckId}) has ${decks[deckId].questions.length} cards`} 
-        </Text>
-        <Button
-
-          title="start quiz"
-          onPress={() => this.props.navigation.navigate('QuizView',{ deckId })}
-        />
-        <Button 
-
-          title="add card"
-          onPress={() => this.props.navigation.navigate('AddQuestion', { deckId })}
-        />
-        <Button 
-
-          title="delete deck"
-          onPress={() => deleteDeck()}
-        />
+      <View style={styles.container2}>
+        <View  style={{justifyContent: "flex-start", flex: 2}}>
+          <Text style={{fontSize: 20, marginTop: 100}}>
+            {deckId} 
+          </Text>
+          <Text style={{fontSize: 16, color: 'gray'}}>
+            {`has ${decks[deckId].questions.length} cards`} 
+          </Text>
+        </View>
+        <View style={styles.contentButtons}>
+          <Button 
+            title="delete deck"
+            onPress={() => this.deleteDeck()}
+          />
+          <Button 
+            title="add card"
+            onPress={() => this.props.navigation.navigate('AddQuestion', { deckId })}
+          />
+          <Button
+            title="start quiz"
+            onPress={() => this.props.navigation.navigate('QuizView',{ deckId })}
+          />
+        </View>
       </View>
     )
   }
@@ -78,11 +82,19 @@ class DeckView extends Component {
 
 
 const styles = StyleSheet.create({
-  container: {
+  container2: {
     flex: 1,
     backgroundColor: '#91cb6c',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+  },
+  contentButtons: {
+    flex: 1 ,
+    /* backgroundColor: '#a90a48', */
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 350 , 
   },
 });
 
