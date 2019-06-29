@@ -10,8 +10,6 @@ function decks (state =[], action){
   switch(action.type){
     case RECEIVE_DECKS :
 
-        debugger
-
       return{
         ...state ,
         ... action.decks,
@@ -28,8 +26,6 @@ function decks (state =[], action){
 
       const newState = {...state}
       delete newState[action.deckId]
-
-      //console.log('TEST newState: ', newState)
 
       return{
         ...newState

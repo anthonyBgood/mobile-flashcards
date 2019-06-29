@@ -57,13 +57,3 @@ export default class App extends Component {
 }
 
 
-/* export default function App() {
-  return (
-    
-    <Provider  store = {createStore(reducer)}>
-      <MainAppContainer/>
-    </Provider>  
-  
-  );
-} */
-

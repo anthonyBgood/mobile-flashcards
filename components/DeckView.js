@@ -34,8 +34,8 @@ class DeckView extends Component {
     }
 
 
-    //TODO: workaround that deals with re-render of this component 
-      // after deleteDeck has been called (the deckId isn't valid anymore)
+    //TODO: this is a workaround that deals with re-render of this component after
+      // deleteDeck has been called (the deckId isn't valid anymore)
       // the JSX below is never shown as already routed to Home
 
     if(decks[deckId] === undefined){

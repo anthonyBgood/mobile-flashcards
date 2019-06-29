@@ -23,20 +23,18 @@ class DeckList extends Component {
     const { dispatch } = this.props
 
       // DEV - load dummy data  
-    /* localGetDecks()
-      .then((result) =>{
-        result === null
-        ? dispatch(receiveDecks(initDecks))
-        : dispatch(receiveDecks(result))
-        this.setState(()=> ({ready: true}))
-      }) */
+      localRemoveDecks()
+        .then(()=>{
+          dispatch(receiveDecks(localInitDeck()))
+          this.setState(()=> ({ready: true}))
+          })
 
       // operational
-      localGetDecks()
+      /* localGetDecks()
         .then((result) =>{
           result !== null && dispatch(receiveDecks(result))
           this.setState(()=> ({ready: true}))
-        })
+        }) */
 
 
       // DEV - remove existing local data 
@@ -64,13 +62,6 @@ class DeckList extends Component {
     return (
 
       <View style={styles.container}>
-
-        {
-          console.log('TEST DECKS: ',decks !== undefined , Object.keys(decks).length )
-          }
-          {
-          console.log('TEST DECKS2: ',decks  )
-        } 
 
         {
           (decks !== undefined &&  Object.keys(decks).length !== undefined && Object.keys(decks).length !== 0) 

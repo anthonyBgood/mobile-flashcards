@@ -29,7 +29,8 @@ class AddDeck extends Component {
         .then(()=>{
           
           dispatch(addDeck(text))
-          this.props.navigation.navigate('Home')
+          //this.props.navigation.navigate('Home')
+          this.props.navigation.navigate('DeckView', { deckId: text })
         })
     }
 

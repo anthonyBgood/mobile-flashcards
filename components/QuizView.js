@@ -98,6 +98,12 @@ class QuizView extends Component {
                 title="exit"
                 onPress={() => competeQuizAndNotifyForTomorrow()}
               />
+
+          <Button
+                title="restart Quiz"
+                onPress={() => this.props.navigation.replace('QuizView',{ deckId })}
+
+              />
         </View>
         </Fragment>
       )
