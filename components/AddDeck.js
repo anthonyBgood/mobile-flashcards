@@ -18,6 +18,8 @@ class AddDeck extends Component {
 
 
 
+  
+
   render(){
 
     const submitDeck = () =>{
@@ -30,7 +32,7 @@ class AddDeck extends Component {
           
           dispatch(addDeck(text))
           //this.props.navigation.navigate('Home')
-          this.props.navigation.navigate('DeckView', { deckId: text })
+          this.props.navigation.replace('DeckView', { deckId: text })
         })
     }
 
