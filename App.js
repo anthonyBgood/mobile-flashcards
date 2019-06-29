@@ -6,7 +6,6 @@ import {  createStackNavigator,
 import { createStore } from 'redux'
 import  { Provider } from 'react-redux'
 import reducer from './reducer'
-import middleware from './middleware'
 
 import DeckList from './components/DeckList'
 import DeckView from './components/DeckView'

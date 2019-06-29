@@ -21,31 +21,41 @@ class AddQuestion extends Component {
     answerText: '' ,
   }
 
+  submitCard = () =>{
+
+    const { dispatch } = this.props
+    const { questionText, answerText } = this.state
+    const { deckId } = this.props.navigation.state.params
+
+    localAddCardToDeck(deckId, questionText, answerText)
+      .then(() =>{
+        dispatch(addCard(deckId, questionText, answerText))
+        navigateBack()    
+      })
+
+  }
+
+  navigateBack = () => {
+
+    const { deckId } = this.props.navigation.state.params
+    this.props.navigation.navigate('DeckView',
+    { deckId: deckId })
+  }
+
+  handleChange = (label, value) => {
+    this.setState({
+      [label]: value
+    })
+  }
+
 
   render(){
 
     const { deckId } = this.props.navigation.state.params
 
-    const submitCard = () =>{
 
-      const { dispatch } = this.props
-      const { questionText, answerText } = this.state
-      const { deckId } = this.props.navigation.state.params
 
-      localAddCardToDeck(deckId, questionText, answerText)
-        .then(() =>{
-          dispatch(addCard(deckId, questionText, answerText))
-          navigateBack()    
-        })
 
-    }
-
-    const navigateBack = () => {
-
-      const { deckId } = this.props.navigation.state.params
-      this.props.navigation.navigate('DeckView',
-      { deckId: deckId })
-    }
 
     return (
       
@@ -61,7 +71,7 @@ class AddQuestion extends Component {
             style={styles.inputStyles}
             placeholderTextColor = 'gray'
             multiline = {true}
-            onChangeText={(questionText) => this.setState({questionText})}
+            onChangeText={(questionText) => this.handleChange('questionText',questionText)}
           />
 
           <TextInput 
@@ -69,7 +79,7 @@ class AddQuestion extends Component {
             style={styles.inputStyles}
             multiline = {true}           
             placeholderTextColor = 'gray'
-            onChangeText={(answerText) => this.setState({answerText})}
+            onChangeText={(answerText) => this.handleChange('answerText',answerText)}
           />
         </View>
 
@@ -77,16 +87,16 @@ class AddQuestion extends Component {
         <View style={styles.contentButtons}>
           <Button
             title="CANCEL"
-            onPress={() => navigateBack() }
+            onPress={() => this.navigateBack() }
           />
 
           {
-            !(this.state.answerText.length === 0) && !(this.state.questionText.length === 0) 
+            !(state.answerText.length === 0) && !(state.questionText.length === 0) 
             && 
               <Button 
                 title="SUBMIT"
                 
-                onPress={() => submitCard()}
+                onPress={() => this.submitCard()}
               />
 
           }
