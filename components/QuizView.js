@@ -57,8 +57,6 @@ class QuizView extends Component {
 
     let displayContent 
    
-
-    debugger
     // no questions
     if (questions.length == 0){
       displayContent = (
@@ -90,10 +88,10 @@ class QuizView extends Component {
         <Fragment>
         <View style={styles.content}>
           <View style={styles.questionBox}>
-            <Text style={{fontSize: 20}}>
+            <Text style={styles.questionBox}>
               Cards Done!
             </Text>
-            <Text style={{fontSize: 20}}>
+            <Text style={styles.questionBox}>
               You got {totalRight} of {questions.length} right.
             </Text>
           </View>
@@ -144,11 +142,13 @@ class QuizView extends Component {
           <View style={styles.contentButtons}>
             <Button
               title="Correct"
+              color='green'
               style={{backgroundColor: 'green'}}
               onPress={() => this.recordAnswer(true)}
             />
             <Button
               title="Incorrect"
+              color='red'
               style={{backgroundColor: 'red'}}
               onPress={() => this.recordAnswer(false)}
             />
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   counter: {
     flex: 1,
-/*     backgroundColor: '#0a48a9', */
+    /*backgroundColor: '#0a48a9', */
     alignItems: 'stretch',
   },
   content: {
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   },
   contentButtons: {
     flex: 2,
-/*     backgroundColor: '#a90a48', */
+    /*backgroundColor: '#a90a48', */
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
