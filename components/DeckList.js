@@ -24,7 +24,7 @@ class DeckList extends Component {
     const { dispatch } = this.props
 
       // DEV - load dummy data  
-      /* localRemoveDecks()
+      localRemoveDecks()
         .then(()=>{
           dispatch(receiveDecks(localInitDeck()))
           localSetDecks(this.props.decks)
@@ -32,24 +32,13 @@ class DeckList extends Component {
               this.setState(()=> ({ready: true}))
             })
           
-          }) */
+          })
 
       // operational
-      localGetDecks()
+      /* localGetDecks()
         .then((result) =>{
           result !== null && dispatch(receiveDecks(result))
           this.setState(()=> ({ready: true}))
-        })
-
-
-      // DEV - remove existing local data 
-      /* localRemoveDecks()
-        .then(()=>{
-          localGetDecks()
-          .then((result) =>{
-            result !== null && dispatch(receiveDecks(result))
-            this.setState(()=> ({ready: true}))
-          })          
         }) */
 
   }

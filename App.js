@@ -9,7 +9,7 @@ import reducer from './reducer'
 
 import { setLocalNotification } from './utils/notificationsHelper'
 
-import {  createStackNavigator, 
+/* import {  createStackNavigator, 
   createAppContainer } from 'react-navigation'
 
 import DeckList from './components/DeckList'
@@ -39,8 +39,13 @@ const MainNavigator = createStackNavigator(
     }
   }
 )
+ 
+const MainAppContainer =  createAppContainer(MainNavigator)  */
 
-const MainAppContainer =  createAppContainer(MainNavigator)  
+
+import routing from './routing'
+
+const MainAppContainer =  routing
 
 export default class App extends Component {
 
